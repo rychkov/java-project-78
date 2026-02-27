@@ -40,7 +40,7 @@ class StringSchemaTest {
         var s = new StringSchema();
         s.minLength(3);
 
-        assertFalse(s.isValid(null));
+        assertTrue(s.isValid(null));
         assertFalse(s.isValid(""));
         assertTrue(s.isValid("123"));
     }
@@ -50,7 +50,7 @@ class StringSchemaTest {
         var s = new StringSchema();
         s.contains("sub");
 
-        assertFalse(s.isValid(null));
+        assertTrue(s.isValid(null));
         assertFalse(s.isValid(""));
         assertFalse(s.isValid("test"));
         assertTrue(s.isValid("testsub"));

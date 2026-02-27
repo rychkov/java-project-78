@@ -3,20 +3,10 @@ package hexlet.code.schemas;
 
 import java.util.Objects;
 
-public final class NumberSchema {
-    private boolean isRequired;
+public final class NumberSchema extends BaseSchema<Number> {
     private boolean checkForPositive;
     private Number from;
     private Number to;
-
-    /**
-     * Make data required.
-     * @return NumberSchema
-     */
-    public NumberSchema required() {
-        isRequired = true;
-        return this;
-    }
 
     /**
      * Add check for positive number.
@@ -45,15 +35,14 @@ public final class NumberSchema {
     }
 
     /**
-     * Checks whether the data meets all requirements.
-     * @param data data for validation
-     * @return {@code true} if data is valid, {@code false} otherwise
+     * {@inheritDoc}
      */
+    @Override
     public boolean isValid(Number data) {
-        if (isRequired && data == null) {
+        if (isRequired() && data == null) {
             return false;
         }
-        if (!isRequired && data == null) {
+        if (!isRequired() && data == null) {
             return true;
         }
 
