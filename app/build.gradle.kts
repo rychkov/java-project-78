@@ -74,7 +74,6 @@ tasks.named("sonar") {
     dependsOn(tasks.test)
     dependsOn(tasks.jacocoTestReport)
     dependsOn("checkstyleMain")
-    dependsOn("checkstyleTest")
 }
 
 dependencies {
