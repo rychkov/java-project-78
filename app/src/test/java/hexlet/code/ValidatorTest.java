@@ -12,4 +12,11 @@ class ValidatorTest {
 
         assertNotNull(validator.string());
     }
+
+    @Test
+    void getNumberSchema() {
+        Validator validator = new Validator();
+
+        assertNotNull(validator.number());
+    }
 }
