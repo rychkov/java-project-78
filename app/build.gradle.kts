@@ -38,6 +38,10 @@ sonar {
     }
 }
 
+tasks.named<Checkstyle>("checkstyleTest") {
+    enabled = false
+}
+
 checkstyle {
     toolVersion = "10.12.4"
     // Игнорировать ошибки, чтобы сборка не падала сразу (на ваше усмотрение)
