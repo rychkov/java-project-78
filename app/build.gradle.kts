@@ -34,8 +34,7 @@ sonar {
             "${project.layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml")
         // Перечисляем пути к отчетам через запятую
         property("sonar.java.checkstyle.reportPaths",
-            "${project.layout.buildDirectory.get()}/reports/checkstyle/main.xml," +
-                    "${project.layout.buildDirectory.get()}/reports/checkstyle/test.xml")
+            "${project.layout.buildDirectory.get()}/reports/checkstyle/main.xml")
     }
 }
 
