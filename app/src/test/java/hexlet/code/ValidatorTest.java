@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
 class ValidatorTest {
-    Validator validator = new Validator();
+    private Validator validator = new Validator();
 
     @Test
     void getStringSchema() {
