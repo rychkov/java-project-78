@@ -5,18 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
 class ValidatorTest {
+    Validator validator = new Validator();
 
     @Test
     void getStringSchema() {
-        Validator validator = new Validator();
-
         assertNotNull(validator.string());
     }
 
     @Test
     void getNumberSchema() {
-        Validator validator = new Validator();
-
         assertNotNull(validator.number());
+    }
+
+    @Test
+    void getMapSchema() {
+        assertNotNull(validator.map());
     }
 }
