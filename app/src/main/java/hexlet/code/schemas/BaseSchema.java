@@ -12,7 +12,7 @@ public abstract class BaseSchema<T> {
         return this;
     }
 
-    public final boolean isRequired() {
+    final boolean isRequired() {
         return isRequired;
     }
 
