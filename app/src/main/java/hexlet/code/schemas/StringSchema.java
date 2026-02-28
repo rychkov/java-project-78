@@ -47,27 +47,34 @@ public final class StringSchema extends BaseSchema<String> {
         System.out.println("data -> " + data);
 
         if (isRequired && (data == null || data.isEmpty())) {
+            System.out.println("false");
             return false;
         }
         if (!isRequired && data == null) {
+            System.out.println("true");
             return true;
         }
 
         if (checkMinLength) {
             if (data == null) {
+                System.out.println(minLength == 0);
                 return minLength == 0;
             } else {
+                System.out.println(data.length() >= minLength);
                 return data.length() >= minLength;
             }
         }
 
         if (substring != null) {
             if (data == null) {
+                System.out.println("false");
                 return false;
             } else {
+                System.out.println(data.contains(substring));
                 return data.contains(substring);
             }
         }
+        System.out.println("true");
         return true;
     }
 
