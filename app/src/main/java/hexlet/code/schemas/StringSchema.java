@@ -57,11 +57,13 @@ public final class StringSchema extends BaseSchema<String> {
 
         if (checkMinLength) {
             if (data == null) {
-                System.out.println(minLength == 0);
-                return minLength == 0;
+                if (minLength != 0) {
+                    return false;
+                }
             } else {
-                System.out.println(data.length() >= minLength);
-                return data.length() >= minLength;
+                if (data.length() < minLength) {
+                    return false;
+                }
             }
         }
 
