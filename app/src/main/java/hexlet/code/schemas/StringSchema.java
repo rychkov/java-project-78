@@ -1,5 +1,7 @@
 package hexlet.code.schemas;
 
+import java.util.StringJoiner;
+
 public final class StringSchema extends BaseSchema<String> {
     private boolean isRequired;
     private boolean checkMinLength;
@@ -41,6 +43,9 @@ public final class StringSchema extends BaseSchema<String> {
      */
     @Override
     public boolean isValid(String data) {
+        System.out.println("schema: " + toString());
+        System.out.println("data -> " + data);
+
         if (isRequired && (data == null || data.isEmpty())) {
             return false;
         }
@@ -64,5 +69,15 @@ public final class StringSchema extends BaseSchema<String> {
             }
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", StringSchema.class.getSimpleName() + "[", "]")
+            .add("isRequired=" + isRequired)
+            .add("checkMinLength=" + checkMinLength)
+            .add("minLength=" + minLength)
+            .add("substring='" + substring + "'")
+            .toString();
     }
 }
