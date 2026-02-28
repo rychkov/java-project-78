@@ -45,7 +45,7 @@ class MapSchemaTest {
         // Имя должно быть строкой, обязательно для заполнения
         schemas.put("firstName", v.string().required());
         // Фамилия обязательна для заполнения и должна содержать не менее 2 символов
-        schemas.put("lastName", ((StringSchema)v.string().required()).minLength(2));
+        schemas.put("lastName", v.string().required().minLength(2));
 
         // Настраиваем схему `MapSchema`
         // Передаем созданный набор схем в метод shape()

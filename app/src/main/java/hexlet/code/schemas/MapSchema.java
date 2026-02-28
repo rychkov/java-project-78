@@ -3,8 +3,18 @@ package hexlet.code.schemas;
 import java.util.Map;
 
 public class MapSchema extends BaseSchema<Map> {
+    private boolean isRequired;
     private int size = -1;
     private Map<String, BaseSchema<String>> shape;
+
+    /**
+     * Make data required.
+     * @return MapSchema
+     */
+    public MapSchema required() {
+        isRequired = true;
+        return this;
+    }
 
     /**
      * Set map size.
@@ -24,10 +34,10 @@ public class MapSchema extends BaseSchema<Map> {
      */
     @Override
     public boolean isValid(Map data) {
-        if (isRequired() && data == null) {
+        if (isRequired && data == null) {
             return false;
         }
-        if (!isRequired() && data == null) {
+        if (!isRequired && data == null) {
             return true;
         }
 

@@ -4,9 +4,19 @@ package hexlet.code.schemas;
 import java.util.Objects;
 
 public final class NumberSchema extends BaseSchema<Number> {
+    private boolean isRequired;
     private boolean checkForPositive;
     private Number from;
     private Number to;
+
+    /**
+     * Make data required.
+     * @return NumberSchema
+     */
+    public NumberSchema required() {
+        isRequired = true;
+        return this;
+    }
 
     /**
      * Add check for positive number.
@@ -39,10 +49,10 @@ public final class NumberSchema extends BaseSchema<Number> {
      */
     @Override
     public boolean isValid(Number data) {
-        if (isRequired() && data == null) {
+        if (isRequired && data == null) {
             return false;
         }
-        if (!isRequired() && data == null) {
+        if (!isRequired && data == null) {
             return true;
         }
 
