@@ -39,7 +39,7 @@ public class MapSchema extends BaseSchema<Map> {
             for (var entry : shape.entrySet()) {
                 var key = entry.getKey();
                 var validator = entry.getValue();
-                if (!validator.isValid((String)data.get(key))) {
+                if (!validator.isValid((String) data.get(key))) {
                     return false;
                 }
             }
@@ -48,7 +48,7 @@ public class MapSchema extends BaseSchema<Map> {
     }
 
     /**
-     * Set shape validation
+     * Set shape validation.
      * @param data validation map
      * @return MapSchema
      */
