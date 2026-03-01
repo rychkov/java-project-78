@@ -1,7 +1,5 @@
 package hexlet.code.schemas;
 
-import java.util.StringJoiner;
-
 public final class StringSchema extends BaseSchema<String> {
     private boolean isRequired;
     private boolean checkMinLength;
