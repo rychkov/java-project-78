@@ -10,6 +10,36 @@ import org.junit.jupiter.api.Test;
 
 class MapSchemaTest {
     @Test
+    void testMapSchemaDeep() {
+        var v = new Validator();
+        var schema = new MapSchema();
+
+        // Проверка размера
+        schema.sizeof(2);
+        Map<String, String> data = new HashMap<>();
+        data.put("key1", "value1");
+        assertFalse(schema.isValid(data));
+        data.put("key2", "value2");
+        assertTrue(schema.isValid(data));
+
+        // Shape validation
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
+        schemas.put("name", v.string().required());
+        schemas.put("age", v.string().minLength(3));
+        schema.shape(schemas);
+
+        Map<String, String> actual1 = new HashMap<>();
+        actual1.put("name", "Maya");
+        actual1.put("age", "18+");
+        assertTrue(schema.isValid(actual1));
+
+        Map<String, String> actual2 = new HashMap<>();
+        actual2.put("name", ""); // Ошибка: required в StringSchema запрещает пустую строку
+        actual2.put("age", "18+");
+        assertFalse(schema.isValid(actual2));
+    }
+
+    @Test
     void testCase4() {
         var schema = new MapSchema();
 

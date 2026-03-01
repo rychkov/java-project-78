@@ -58,6 +58,28 @@ class StringSchemaTest {
     }
 
     @Test
+    void testStringComplex() {
+        var v = new Validator();
+        var schema = v.string();
+
+        // Проверка, что minLength наслаивается корректно (последний вызов приоритетнее)
+        schema.minLength(10).minLength(4);
+        assertTrue(schema.isValid("Hexlet"));
+        assertFalse(schema.isValid("Hex"));
+
+        // Проверка contains
+        schema.contains("hex");
+        assertTrue(schema.isValid("hexlet"));
+        assertFalse(schema.isValid("helper"));
+
+        // Проверка: пустая строка НЕ валидна, если вызван required()
+        schema.required();
+        assertFalse(schema.isValid(""));
+        // Но строка с пробелом валидна, если нет других ограничений
+        assertTrue(v.string().required().isValid(" "));
+    }
+
+    @Test
     void testCaseStep2() {
         var v = new Validator();
         var schema = v.string();

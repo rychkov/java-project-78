@@ -43,15 +43,10 @@ public final class StringSchema extends BaseSchema<String> {
      */
     @Override
     public boolean isValid(String data) {
-        System.out.println("schema: " + toString());
-        System.out.println("data -> " + data);
-
         if (isRequired && (data == null || data.isEmpty())) {
-            System.out.println("false");
             return false;
         }
         if (!isRequired && data == null) {
-            System.out.println("true");
             return true;
         }
 
@@ -69,24 +64,11 @@ public final class StringSchema extends BaseSchema<String> {
 
         if (substring != null) {
             if (data == null) {
-                System.out.println("false");
                 return false;
             } else {
-                System.out.println(data.contains(substring));
                 return data.contains(substring);
             }
         }
-        System.out.println("true");
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", StringSchema.class.getSimpleName() + "[", "]")
-            .add("isRequired=" + isRequired)
-            .add("checkMinLength=" + checkMinLength)
-            .add("minLength=" + minLength)
-            .add("substring='" + substring + "'")
-            .toString();
     }
 }
