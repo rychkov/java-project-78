@@ -7,7 +7,7 @@ public final class StringSchema extends BaseSchema<String> {
      * @return StringSchema
      */
     public StringSchema required() {
-        required = true;
+        setRequired(true);
         return this;
     }
 
@@ -36,14 +36,14 @@ public final class StringSchema extends BaseSchema<String> {
      */
     @Override
     public boolean isValid(String data) {
-        if (required && (data == null || data.isEmpty())) {
+        if (isRequired() && (data == null || data.isEmpty())) {
             return false;
         }
-        if (!required && data == null) {
+        if (!isRequired() && data == null) {
             return true;
         }
 
-        for (var p: checks.values()) {
+        for (var p: getChecks().values()) {
             if (!p.test(data)) {
                 return false;
             }

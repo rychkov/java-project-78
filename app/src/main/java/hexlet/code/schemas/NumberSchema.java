@@ -8,7 +8,7 @@ public final class NumberSchema extends BaseSchema<Number> {
      * @return NumberSchema
      */
     public NumberSchema required() {
-        required = true;
+        setRequired(true);
         return this;
     }
 
@@ -43,14 +43,14 @@ public final class NumberSchema extends BaseSchema<Number> {
      */
     @Override
     public boolean isValid(Number data) {
-        if (required && data == null) {
+        if (isRequired() && data == null) {
             return false;
         }
-        if (!required && data == null) {
+        if (!isRequired() && data == null) {
             return true;
         }
 
-        for (var p : checks.values()) {
+        for (var p : getChecks().values()) {
             if (!p.test(data)) {
                 return false;
             }

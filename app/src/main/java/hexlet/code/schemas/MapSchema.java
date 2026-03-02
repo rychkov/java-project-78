@@ -8,7 +8,7 @@ public class MapSchema extends BaseSchema<Map> {
      * @return MapSchema
      */
     public MapSchema required() {
-        required = true;
+        setRequired(true);
         return this;
     }
 
@@ -30,14 +30,14 @@ public class MapSchema extends BaseSchema<Map> {
      */
     @Override
     public boolean isValid(Map data) {
-        if (required && data == null) {
+        if (isRequired() && data == null) {
             return false;
         }
-        if (!required && data == null) {
+        if (!isRequired() && data == null) {
             return true;
         }
 
-        for (var p : checks.values()) {
+        for (var p : getChecks().values()) {
             if (!p.test(data)) {
                 return false;
             }
