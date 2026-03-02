@@ -1,20 +1,14 @@
 package hexlet.code.schemas;
 
-
 import java.util.Objects;
 
 public final class NumberSchema extends BaseSchema<Number> {
-    private boolean isRequired;
-    private boolean checkForPositive;
-    private Number from;
-    private Number to;
-
     /**
      * Make data required.
      * @return NumberSchema
      */
     public NumberSchema required() {
-        isRequired = true;
+        required = true;
         return this;
     }
 
@@ -23,7 +17,7 @@ public final class NumberSchema extends BaseSchema<Number> {
      * @return NumberSchema
      */
     public NumberSchema positive() {
-        checkForPositive = true;
+        addCheck("positive", n -> n.doubleValue() > 0);
         return this;
     }
 
@@ -39,8 +33,8 @@ public final class NumberSchema extends BaseSchema<Number> {
         if (lowerBound.doubleValue() > upperBound.doubleValue()) {
             throw new IllegalArgumentException("lowerBound should be less or equal to upperBound");
         }
-        this.from = lowerBound;
-        this.to = upperBound;
+        addCheck("range", n -> lowerBound.doubleValue() <= n.doubleValue()
+                                                   && n.doubleValue() <= upperBound.doubleValue());
         return this;
     }
 
@@ -49,22 +43,17 @@ public final class NumberSchema extends BaseSchema<Number> {
      */
     @Override
     public boolean isValid(Number data) {
-        if (isRequired && data == null) {
+        if (required && data == null) {
             return false;
         }
-        if (!isRequired && data == null) {
+        if (!required && data == null) {
             return true;
         }
 
-        if (checkForPositive && data.doubleValue() <= 0) {
-            return false;
-        }
-
-        if (from != null && to != null
-            && (data.doubleValue() < from.doubleValue()
-                || to.doubleValue() < data.doubleValue())
-        ) {
-            return false;
+        for (var p : checks.values()) {
+            if (!p.test(data)) {
+                return false;
+            }
         }
         return true;
     }

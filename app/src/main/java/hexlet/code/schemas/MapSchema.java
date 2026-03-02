@@ -3,16 +3,12 @@ package hexlet.code.schemas;
 import java.util.Map;
 
 public class MapSchema extends BaseSchema<Map> {
-    private boolean isRequired;
-    private int size = -1;
-    private Map<String, BaseSchema<String>> shape;
-
     /**
      * Make data required.
      * @return MapSchema
      */
     public MapSchema required() {
-        isRequired = true;
+        required = true;
         return this;
     }
 
@@ -25,7 +21,7 @@ public class MapSchema extends BaseSchema<Map> {
         if (n < 0) {
             throw new IllegalArgumentException("n should be >= 0");
         }
-        size = n;
+        addCheck("sizeof", map -> map.size() == n);
         return this;
     }
 
@@ -34,24 +30,16 @@ public class MapSchema extends BaseSchema<Map> {
      */
     @Override
     public boolean isValid(Map data) {
-        if (isRequired && data == null) {
+        if (required && data == null) {
             return false;
         }
-        if (!isRequired && data == null) {
+        if (!required && data == null) {
             return true;
         }
 
-        if (size >= 0 && data.size() != size) {
-            return false;
-        }
-
-        if (shape != null) {
-            for (var entry : shape.entrySet()) {
-                var key = entry.getKey();
-                var validator = entry.getValue();
-                if (!validator.isValid((String) data.get(key))) {
-                    return false;
-                }
+        for (var p : checks.values()) {
+            if (!p.test(data)) {
+                return false;
             }
         }
         return true;
@@ -59,11 +47,20 @@ public class MapSchema extends BaseSchema<Map> {
 
     /**
      * Set shape validation.
-     * @param data validation map
+     * @param shape validation map
      * @return MapSchema
      */
-    public MapSchema shape(Map<String, BaseSchema<String>> data) {
-        shape = data;
+    public MapSchema shape(Map<String, BaseSchema<String>> shape) {
+        addCheck("shape", map -> {
+            for (var entry : shape.entrySet()) {
+                var key = entry.getKey();
+                var validator = entry.getValue();
+                if (!validator.isValid((String) map.get(key))) {
+                    return false;
+                }
+            }
+            return true;
+        });
         return this;
     }
 }
