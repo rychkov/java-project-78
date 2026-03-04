@@ -26,26 +26,6 @@ public class MapSchema extends BaseSchema<Map> {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isValid(Map data) {
-        if (isRequired() && data == null) {
-            return false;
-        }
-        if (!isRequired() && data == null) {
-            return true;
-        }
-
-        for (var p : getChecks().values()) {
-            if (!p.test(data)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Set shape validation.
      * @param shape validation map
      * @return MapSchema

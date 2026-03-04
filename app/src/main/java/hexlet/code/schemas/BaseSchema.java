@@ -40,5 +40,18 @@ public abstract class BaseSchema<T> {
      * @param data data for validation
      * @return {@code true} if data is valid, {@code false} otherwise
      */
-    public abstract boolean isValid(T data);
+    public boolean isValid(T data) {
+        if (isRequired() && data == null) {
+            return false;
+        }
+        if (!isRequired() && data == null) {
+            return true;
+        }
+        for (var p : getChecks().values()) {
+            if (!p.test(data)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

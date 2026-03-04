@@ -37,24 +37,4 @@ public final class NumberSchema extends BaseSchema<Number> {
                                                    && n.doubleValue() <= upperBound.doubleValue());
         return this;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isValid(Number data) {
-        if (isRequired() && data == null) {
-            return false;
-        }
-        if (!isRequired() && data == null) {
-            return true;
-        }
-
-        for (var p : getChecks().values()) {
-            if (!p.test(data)) {
-                return false;
-            }
-        }
-        return true;
-    }
 }
